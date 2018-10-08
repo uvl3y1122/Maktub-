@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Maktub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootsrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <!-- CSS&JS -->
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/ply.css" rel="stylesheet">
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/Ply.min.js"></script>
+    <!-- CDN -->
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+    <!-- 字型載入 -->
+    <style>
+        @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+        * {
+            font-family: 'Noto Sans TC';
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="center-block" style="display: table">title</h2>
+    <div id="app">
+        <div class="totalnum">
+            <span>總人數:{{clanum1+clanum2}}</span>
+            <!-- <button type="button" id="calnum">計算人數</button> -->
+        </div>
+        <div class="container flexBox">
+            <draggable v-model="myArray">
+                    <transition-group>
+                        <div v-for="item in teamA">
+                                {{item.name}}
+                        </div>
+                    </transition-group>
+            </draggable>
+            <!-- <div class="layer">
+                <div class="list_title">Team A</div>
+                <span>人數: {{clanum1}}</span>
+                <div class="listBox">
+                    <ul id="foo1" class="listBox_list" :data="discList">
+                        <li v-for="(item,key) in teamA">{{item.name}}
+                           <select class="custom-select" id="inputGroupSelect01">
+                                <option v-for="item in item.job">{{item}}</option> 
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div> -->
+            <div class="layer">
+                <div class="list_title">Team B</div>
+                <span>人數: {{clanum2}}</span>
+                <div class="listBox">
+                    <ul id="foo2" class="listBox_list">
+                        <li v-for="(item,key) in teamB">{{item.name}}
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option v-for="item in item.job">{{item}}</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="layer">
+                <div class="list_title">Team C</div>
+                <span>人數: {{}}</span>
+                <div class="listBox">
+                    <ul id="foo3" class="listBox_list">
+                        <li>member13</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="list_title">Team D</div>
+                <span>人數: {{}}</span>
+                <div class="listBox">
+                    <ul id="foo4" class="listBox_list">
+                        <li>member17</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="list_title">Team E</div>
+                <span>人數: {{}}</span>
+                <div class="listBox">
+                    <ul id="foo5" class="listBox_list">
+                        <li>member19</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container flexBox">
+            <div class="layer_f">
+                <div class="list_title">single</div>
+                <span>人數: {{}}</span>
+                <div class="listBox">
+                    <ul id="foo6" class="listBox_list">
+                        <li>member19</li>
+                        <li>member20</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layer_f">
+                <div class="list_title">vaction</div>
+                <span>人數: {{}}</span>
+                <div class="listBox">
+                    <ul id="foo7" class="listBox_list">
+                        <li>member21</li>
+                        <li>member22</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layer_f">
+                <div class="list_title">add</div>
+                <div class="listBox">
+                    <ul id="foo8" class="listBox_list cancancel">
+                        <li>member23 <i class="js-remove">✖</i></li>
+                        <li>member24 <i class="js-remove">✖</i></li>
+                    </ul>
+                    <button id="addUser">Add</button>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+</body>
+
+<script>
+    import draggable from 'js/vuedraggable'
+    export default {
+        components: {
+            draggable,
+        }
+    }
+    var app = new Vue({
+        el: "#app",
+        data: {
+            teamA:[{
+                name:'member1',
+                job:['職業','職業','職業']
+            },{
+                name:'member2',
+                job:['職業','職業','職業']
+            },{
+                name:'member3',
+                job:['職業']
+            },{
+                name:'member4',
+                job:['職業','職業','職業']
+            },{
+                name:'member5',
+                job:['職業','職業','職業']
+            }
+            ],
+            teamB:[{
+                name:'member8',
+                job:['職業','職業','職業']
+            },{
+                name:'member2',
+                job:['職業','職業','職業']
+            },{
+                name:'member3',
+                job:['職業','職業']
+            }
+            ]
+        },
+        computed:{
+            clanum1:function(){
+                return this.teamA.length;
+            },
+            clanum2:function(){
+                var numB=0;
+                this.teamB.forEach(function(item){
+                    numB+=1;
+                })
+                return numB;
+            }
+        }
+
+    })
+   
+</script>
+
+</html>
