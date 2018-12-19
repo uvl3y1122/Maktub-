@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Maktub2.0</title>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<script src="http://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.15.0/vuedraggable.min.js"></script>
+<!-- CSS & JS --> 
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+<link href="css/main.css" rel="stylesheet">
+<script type="text/javascript" src="js/main.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<!-- <link href="css/ply.css" rel="stylesheet">
+<script src="js/Ply.min.js"></script> -->
+
+<!-- Add this after vue.js -->
+<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+<!-- 字型載入 -->
+<style>
+        @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+        * {
+            font-family: 'Noto Sans TC';
+        }
+</style>
+
+</head>
+    <body>
+        <div id="app">
+            <!-- 四隊組隊 -->
+            <div class="container wapper">
+                    <div class="sum">總人數: {{teamA.length+teamB.length+teamC.length+teamD.length+single.length}}</div>
+                    <div class="layer atk">
+                        <div class="title">
+                            <h4>1</h4>
+                            <p>num:{{teamA.length}}</p>
+                        </div>
+                        <ul id="foo1" class="member_item">
+                            <draggable  v-model="teamA" :options="{group:'member'}">
+                                <transition-group name="move_item">
+                                <li v-for="(item,index) in teamA" class="move_item" v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                        <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                            </transition-group>
+                            </draggable>
+                        </ul>
+                    </div>
+                    <div class="layer atk">
+                        <div class="title">
+                            <h4>2</h4>
+                            <p>num:{{teamB.length}}</p>
+                        </div>
+                        <ul id="foo2" class="member_item">
+                            <draggable  v-model="teamB" :options="{group:'member'}">
+                                <transition-group name="list-complete">
+                                <li v-for="(item,index) in teamB" v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                    <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove1(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                                </transition-group>
+                            </draggable>
+                        </ul>
+                    </div>
+                    <div class="layer def">
+                        <div class="title">
+                            <h4>3</h4>
+                            <p>num:{{teamC.length}}</p>
+                        </div>
+                        <ul id="foo3" class="member_item">
+                            <draggable  v-model="teamC" :options="{group:'member'}">
+                                <transition-group name="list-complete">
+                                <li v-for="(item,index) in teamC" v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                    <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove2(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                                </transition-group>
+                            </draggable>
+                        </ul>
+                    </div>
+                    <div class="layer def">
+                        <div class="title">
+                            <h4>4</h4>
+                            <p>num:{{teamD.length}}</p>
+                        </div>
+                        <ul id="foo4" class="member_item">
+                            <draggable  v-model="teamD" :options="{group:'member'}">
+                                <transition-group name="list-complete">
+                                <li v-for="(item,index) in teamD" v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                        <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove3(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                                </transition-group>
+                            </draggable>
+                        </ul>
+                    </div>
+            </div>
+
+            <!-- 單人與其他 -->
+            <div class="container wapper2">
+                    <div class="layer single">
+                        <div class="title">
+                                <p>num:{{single.length}}</p>
+                        </div>
+                        <ul id="foo5" class="member_item">
+                            <draggable  v-model="single" :options="{group:'member'}">
+                                <transition-group name="list-complete">
+                                <li v-for="(item,index) in single"  v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                        <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove4(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                                </transition-group>
+                            </draggable>
+                        </ul>
+                    </div>
+                    <div class="layer unknow">
+                        <ul id="foo6" class="member_item">
+                            <draggable  v-model="unknow" :options="{group:'member'}">
+                                <transition-group name="list-complete">
+                                <li v-for="(item, index) in unknow" v-bind:key="item.name">{{item.name}}
+                                    <select class="custom-select">
+                                    <option v-for="item in item.job">{{item}}</option> 
+                                    </select>
+                                    <div class="cancel" @click="remove(index)"><img src="img/SVG/cancel.svg" alt=""></div>
+                                </li>
+                                </transition-group>
+                            </draggable>
+                        </ul>
+                        <button class="addmember" id="addmember" v-b-modal.addmember><i class="fas fa-plus"></i></button>
+                    </div>
+            </div>
+            <!-- 加入人員 -->
+            <div>
+                <!-- Modal Component -->
+                    <b-modal id="addmember"
+                             ref="modal"
+                             title="Add Member"
+                             @ok="handleOk"
+                             @shown="clearName">
+                      <form @submit.stop.prevent="handleSubmit">
+                        <b-form-input type="text" placeholder="Enter name" v-model="name"></b-form-input><br>
+                        <b-form-input type="text" placeholder="Enter job" v-model="job"></b-form-input>
+                      </form>
+                    </b-modal>
+            </div>
+
+    </div> <!-- app end -->
+    <script type="text/javascript">
+    new Vue({
+    el:'#app',
+    name:'',
+    job:'',
+    data:{
+        teamA:[{
+                name:'好人寶貝',
+                job:['魅影','咒術']
+            },{
+                name:'好人伐表',
+                job:['咒術']
+            },{
+                name:'灼焰',
+                job:['皇家']
+            },{
+                name:'奶爸',
+                job:['盧恩']
+            },{
+                name:'子兒吐吐',
+                job:['主教']
+            },{
+                name:'熊太',
+                job:['貓咪']
+            },{
+                name:'DJ',
+                job:['盧恩','皇家','斬首']
+            },{
+                name:'甘蔗',
+                job:['修羅']
+            },{
+                name:'御',
+                job:['魅影']
+            },{
+                name:'Olafer',
+                job:['盧恩']
+            },{
+                name:'Yee',
+                job:['妖術']
+            }
+            ],
+            teamB:[{
+                name:'Jhu.筑',
+                job:['主教']
+            },{
+                name:'Dance蝶',
+                job:['皇家','盧恩']
+            },{
+                name:'小賊丘',
+                job:['貓咪','皇家']
+            },{
+                name:'0秒',
+                job:['修羅']
+            },{
+                name:'符咒',
+                job:['盧恩','皇家','法貓']
+            },{
+                name:'老頭',
+                job:['魅影','修羅','咒術']
+            },{
+                name:'美麗聖潔弓箭',
+                job:['斬首','機匠','反叛']
+            },{
+                name:'洗米君',
+                job:['斬首']
+            },{
+                name:'小智',
+                job:['修羅']
+            },{
+                name:'竹楓',
+                job:['皇家']
+            },{
+                name:'幻風',
+                job:['盧恩']
+            }
+            ],
+            teamC:[{
+                name:'琲琲',
+                job:['妖術','主教']
+            },{
+                name:'睡不飽',
+                job:['皇家']
+            },{
+                name:'?????????',
+                job:['咒術']
+            },{
+                name:'布爾凱索',
+                job:['皇家','機匠','反叛']
+            },{
+                name:'咕咕雞',
+                job:['反叛','主教']
+            },{
+                name:'楓夜貓',
+                job:['盧恩']
+            },{
+                name:'法拉利',
+                job:['機匠','妖術']
+            },{
+                name:'丸子哥',
+                job:['魅影','貓咪']
+            },{
+                name:'1+1=65',
+                job:['斬首','妖術','魅影']
+            },{
+                name:'卡門',
+                job:['主教']
+            }
+            ],
+            teamD:[{
+                name:'543',
+                job:['修羅']
+            },{
+                name:'布林喜德',
+                job:['修羅']
+            },{
+                name:'檸檬汽水',
+                job:['妖術','咒術']
+            },{
+                name:'人生',
+                job:['盧恩']
+            },{
+                name:'瑾月',
+                job:['舞孃','主教']
+            },{
+                name:'飛遠',
+                job:['斬首','盧恩']
+            },{
+                name:'連盾之墜',
+                job:['皇家']
+            },{
+                name:'安德朗克',
+                job:['反叛','咒術']
+            },{
+                name:'糖糖',
+                job:['主教','舞孃','貓咪']
+            },{
+                name:'梵天武神者',
+                job:['遊俠']
+            },{
+                name:'雷薩',
+                job:['妖術','皇家','斬首']
+            }
+            ],single:[{
+                name:'小美',
+                job:['基因']
+            },{
+                name:'阿冰',
+                job:['樂師','皇家','反叛']
+            },{
+                name:'會長',
+                job:['修羅']
+            },{
+                name:'小熊',
+                job:['基因','貓','魅影']
+            }
+            ],
+            unknow:[{
+                name:'Devil貓',
+                job:['主教']
+            },{
+                name:'曇花落',
+                job:['魅影']
+            },{
+                name:'樂小星',
+                job:['主教']
+            },{
+                name:'湘小咿',
+                job:['主教','舞孃']
+            },{
+                name:'EE',
+                job:['主教','機匠']
+            },{
+                name:'血染戰袍百戰痕',
+                job:['盧恩']
+            },{
+                name:'哭哭',
+                job:['盧恩']
+            },{
+                name:'神_CS',
+                job:['皇家']
+            },{
+                name:'寧靜雪',
+                job:['妖術']
+            },{
+                name:'800',
+                job:['反叛','樂師','機匠']
+            },{
+                name:'才蘇',
+                job:['修羅','魅影']
+            },{
+                name:'痕天痕',
+                job:['主教']
+            },{
+                name:'甜蜜綠茶',
+                job:['樂師']
+            },{
+                name:'0.38',
+                job:['樂師']
+            },{
+                name:'南韓',
+                job:['魅影']
+            },{
+                name:'小豬寶',
+                job:['基因']
+            }
+            ],
+        },
+        methods: {
+            remove: function(index){
+                this.teamA.splice(index, 1);
+            },
+            remove1: function(index){
+                this.teamB.splice(index, 1);
+            },
+            remove2: function(index){
+                this.teamC.splice(index, 1);
+            },
+            remove3: function(index){
+                this.teamD.splice(index, 1);
+            },
+            remove4: function(index){
+                this.single.splice(index, 1);                
+            },
+            clearName () {
+                this.name ='';
+                this.job ='';
+            },
+            handleOk (evt) {
+            // Prevent modal from closing
+                evt.preventDefault()
+                if (!this.name||!this.job) {
+                    alert('Please enter')
+                } else {
+                    this.handleSubmit()
+                }
+            },
+            handleSubmit (){
+                this.unknow.push({name:this.name,job:[this.job]})
+                this.clearName()
+                this.$refs.modal.hide()
+            }
+        }
+    })
+    </script>
+</body>
+</html>

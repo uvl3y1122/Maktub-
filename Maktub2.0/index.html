@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Maktub2.0</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- CSS & JS --> 
+    <link href="css/main.css" rel="stylesheet">
+    <script type="text/javascript" src="js/main.js"></script>
+    <link href="css/ply.css" rel="stylesheet">
+    <script src="js/Ply.min.js"></script>
+    <!-- CDN -->
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js"></script><!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- 字型載入 -->
+    <style>
+            @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+            * {
+                font-family: 'Noto Sans TC';
+            }
+    </style>
+  </head>
+  <body>
+      <div id="app">
+          <!-- 四隊組隊 -->
+          <div class="container wapper">
+                <div class="layer atk">
+                    <div class="title">
+                        <h4>1</h4>
+                        <p>num:0</p>
+                    </div>
+                    <ul id="foo1" class="member_item">
+                        <li v-for="(item,key) in teamA">{{item.name}}
+                            <select class="custom-select">
+                                <option v-for="item in item.job">{{item}}</option> 
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="layer atk">
+                    <div class="title">
+                        <h4>2</h4>
+                        <p>num:0</p>
+                    </div>
+                    <ul id="foo2" class="member_item">
+                        <li v-for="(item,key) in teamB">{{item.name}}
+                                <select class="custom-select" >
+                                    <option v-for="item in item.job">{{item}}</option>
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="layer def">
+                    <div class="title">
+                        <h4>3</h4>
+                        <p>num:0</p>
+                    </div>
+                    <ul id="foo3" class="member_item">
+                        <li v-for="(item,key) in teamC">{{item.name}}
+                            <select class="custom-select">
+                                <option v-for="item in item.job">{{item}}</option> 
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="layer def">
+                    <div class="title">
+                        <h4>4</h4>
+                        <p>num:0</p>
+                    </div>
+                    <ul id="foo4" class="member_item">
+                        <li v-for="(item,key) in teamD">{{item.name}}
+                            <select class="custom-select">
+                                <option v-for="item in item.job">{{item}}</option>
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+                </div>
+          </div>
+          <!-- 單人與其他 -->
+          <div class="container wapper2">
+              <div class="layer single">
+                    <div class="title">
+                            <p>num:0</p>
+                    </div>
+                    <ul id="foo5" class="member_item">
+                        <li v-for="(item,key) in single">{{item.name}}
+                            <select class="custom-select" >
+                                <option v-for="item in item.job">{{item}}</option> 
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+              </div>
+              <div class="layer unknow">
+                    <ul id="foo6" class="member_item">
+                        <li v-for="(item,key) in unknow">{{item.name}}
+                            <select class="custom-select" >
+                                <option v-for="item in item.job">{{item}}</option> 
+                            </select>
+                            <div class="cancel"><img src="img/SVG/cancel.svg" alt=""></div>
+                        </li>
+                    </ul>
+                  <button class="addmember" id="addmember"><i class="fas fa-plus"></i></button>
+              </div>
+          </div>
+      </div>
+  </body>
+  <!-- vue data -->
+  <script>
+        var app = new Vue({
+            el:"#app",
+            data: {
+            whichTeam:'team_A',
+            teamA:[{
+                name:'好人寶貝',
+                job:['魅影','咒術']
+            },{
+                name:'好人伐表',
+                job:['咒術']
+            },{
+                name:'灼焰',
+                job:['皇家']
+            },{
+                name:'奶爸',
+                job:['盧恩']
+            },{
+                name:'子兒吐吐',
+                job:['主教']
+            },{
+                name:'熊太',
+                job:['貓咪']
+            },{
+                name:'DJ',
+                job:['盧恩','皇家','斬首']
+            },{
+                name:'甘蔗',
+                job:['修羅']
+            },{
+                name:'御',
+                job:['魅影']
+            },{
+                name:'Olafer',
+                job:['盧恩']
+            },{
+                name:'Yee',
+                job:['妖術']
+            }
+            ],
+            teamB:[{
+                name:'Jhu.筑',
+                job:['主教']
+            },{
+                name:'Dance蝶',
+                job:['皇家','盧恩']
+            },{
+                name:'小賊丘',
+                job:['貓咪','皇家']
+            },{
+                name:'0秒',
+                job:['修羅']
+            },{
+                name:'符咒',
+                job:['盧恩','皇家','法貓']
+            },{
+                name:'老頭',
+                job:['魅影','修羅','咒術']
+            },{
+                name:'美麗聖潔弓箭',
+                job:['斬首','機匠','反叛']
+            },{
+                name:'洗米君',
+                job:['斬首']
+            },{
+                name:'小智',
+                job:['修羅']
+            },{
+                name:'竹楓',
+                job:['皇家']
+            },{
+                name:'幻風',
+                job:['盧恩']
+            }
+            ],
+            teamC:[{
+                name:'琲琲',
+                job:['妖術','主教']
+            },{
+                name:'睡不飽',
+                job:['皇家']
+            },{
+                name:'?????????',
+                job:['咒術']
+            },{
+                name:'布爾凱索',
+                job:['皇家','機匠','反叛']
+            },{
+                name:'咕咕雞',
+                job:['反叛','主教']
+            },{
+                name:'楓夜貓',
+                job:['盧恩']
+            },{
+                name:'法拉利',
+                job:['機匠','妖術']
+            },{
+                name:'丸子哥',
+                job:['魅影','貓咪']
+            },{
+                name:'1+1=65',
+                job:['斬首','妖術','魅影']
+            },{
+                name:'卡門',
+                job:['主教']
+            }
+            ],
+            teamD:[{
+                name:'543',
+                job:['修羅']
+            },{
+                name:'布林喜德',
+                job:['修羅']
+            },{
+                name:'檸檬汽水',
+                job:['妖術','咒術']
+            },{
+                name:'人生',
+                job:['盧恩']
+            },{
+                name:'瑾月',
+                job:['舞孃','主教']
+            },{
+                name:'飛遠',
+                job:['斬首','盧恩']
+            },{
+                name:'連盾之墜',
+                job:['皇家']
+            },{
+                name:'安德朗克',
+                job:['反叛','咒術']
+            },{
+                name:'糖糖',
+                job:['主教','舞孃','貓咪']
+            },{
+                name:'梵天武神者',
+                job:['遊俠']
+            },{
+                name:'雷薩',
+                job:['妖術','皇家','斬首']
+            }
+            ],single:[{
+                name:'小美',
+                job:['基因']
+            },{
+                name:'阿冰',
+                job:['樂師','皇家','反叛']
+            },{
+                name:'會長',
+                job:['修羅']
+            },{
+                name:'小熊',
+                job:['基因','貓','魅影']
+            }
+            ],
+            unknow:[{
+                name:'Devil貓',
+                job:['主教']
+            },{
+                name:'曇花落',
+                job:['魅影']
+            },{
+                name:'樂小星',
+                job:['主教']
+            },{
+                name:'湘小咿',
+                job:['主教','舞孃']
+            },{
+                name:'EE',
+                job:['主教','機匠']
+            },{
+                name:'血染戰袍百戰痕',
+                job:['盧恩']
+            },{
+                name:'哭哭',
+                job:['盧恩']
+            },{
+                name:'神_CS',
+                job:['皇家']
+            },{
+                name:'寧靜雪',
+                job:['妖術']
+            },{
+                name:'800',
+                job:['反叛','樂師','機匠']
+            },{
+                name:'才蘇',
+                job:['修羅','魅影']
+            },{
+                name:'痕天痕',
+                job:['主教']
+            },{
+                name:'甜蜜綠茶',
+                job:['樂師']
+            },{
+                name:'0.38',
+                job:['樂師']
+            },{
+                name:'南韓',
+                job:['魅影']
+            },{
+                name:'小豬寶',
+                job:['基因']
+            }
+            ],
+        }
+        })
+  </script>
+  
+</html>
